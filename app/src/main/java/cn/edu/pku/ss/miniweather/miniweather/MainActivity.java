@@ -304,32 +304,32 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                 datecount++;
                             }  else if (xmlPullParser.getName().equals("date") && datecount == 1) {
                                 eventType = xmlPullParser.next();
-                                weathers[1].setDate(xmlPullParser.getText());
+                                weathers[1].setDate(xmlPullParser.getText().substring(xmlPullParser.getText().length()-3).trim());
                                 datecount++;
                             }
                             else if (xmlPullParser.getName().equals("date") && datecount == 2) {
                                 eventType = xmlPullParser.next();
-                                weathers[2].setDate(xmlPullParser.getText());
+                                weathers[2].setDate(xmlPullParser.getText().substring(xmlPullParser.getText().length()-3).trim());
                                 datecount++;
                             }
                             else if (xmlPullParser.getName().equals("date") && datecount == 3) {
                                 eventType = xmlPullParser.next();
-                                weathers[3].setDate(xmlPullParser.getText());
+                                weathers[3].setDate(xmlPullParser.getText().substring(xmlPullParser.getText().length()-3).trim());
                                 datecount++;
                             }
                             else if (xmlPullParser.getName().equals("date") && datecount == 4) {
                                 eventType = xmlPullParser.next();
-                                weathers[4].setDate(xmlPullParser.getText());
+                                weathers[4].setDate(xmlPullParser.getText().substring(xmlPullParser.getText().length()-3).trim());
                                 datecount++;
                             }
                             else if (xmlPullParser.getName().equals("date") && datecount == 5) {
                                 eventType = xmlPullParser.next();
-                                weathers[5].setDate(xmlPullParser.getText());
+                                weathers[5].setDate(xmlPullParser.getText().substring(xmlPullParser.getText().length()-3).trim());
                                 datecount++;
                             }
                             else if (xmlPullParser.getName().equals("date") && datecount == 6) {
                                 eventType = xmlPullParser.next();
-                                weathers[6].setDate(xmlPullParser.getText());
+                                weathers[6].setDate(xmlPullParser.getText().substring(xmlPullParser.getText().length()-3).trim());
                                 datecount++;
                             }
                             else if (xmlPullParser.getName().equals("high") && highcount == 0) {
@@ -460,7 +460,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         pmdata.setText(weathers[0].getPm25()==null?"N/A":weathers[0].getPm25());
         quality.setText(weathers[0].getQuality()==null?"N/A":weathers[0].getQuality());
         week[0].setText(weathers[0].getDate()==null?"N/A":weathers[0].getDate());
-        temperature[0].setText(weathers[0].getLow()==null?"N/A":weathers[0].getLow() + "~" + weathers[0].getHigh()==null?"N/A": weathers[0].getHigh());
+        temperature[0].setText((weathers[0].getLow()==null ||weathers[0].getHigh()==null )?"N/A~N/A":(weathers[0].getLow() + "~" + weathers[0].getHigh()));
         type[0].setText(weathers[0].getType()==null?"N/A":weathers[0].getType());
         wind[0].setText(weathers[0].getFengli()==null?"N/A":weathers[0].getFengli());
         if(weathers[0].getType()!=null) {
@@ -529,7 +529,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         //更新未来六天的天气
         for(int i=1;i<=6;i++){
             week[i].setText(weathers[i].getDate()==null?"N/A":weathers[i].getDate());
-            temperature[i].setText(weathers[i].getLow()==null?"N/A":weathers[i].getLow() + "~" + weathers[i].getHigh()==null?"N/A": weathers[i].getHigh());
+            temperature[i].setText((weathers[i].getLow()==null ||weathers[i].getHigh()==null )?"N/A~N/A":(weathers[i].getLow() + "~" + weathers[i].getHigh()));
             type[i].setText(weathers[i].getType()==null?"N/A":weathers[i].getType());
             wind[i].setText(weathers[i].getFengli()==null?"N/A":weathers[i].getFengli());
         }
