@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".miniweather.MainActivity"></activity>
         <activity android:name=".miniweather.SelectCity"></activity>
-        <activity android:name=".miniweather.Guide">
+        <activity android:name=".miniweather.Guide"></activity>
+        <activity android:name=".miniweather.Welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
