@@ -171,10 +171,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
             String newcitycode = data.getStringExtra("citycode");
             Log.d("myweather", "选择的城市代码为：" + newcitycode);
             if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {
-                Log.d("myweather", "网络ok");
+                Log.d("myweather", "网络ok~~~memeda");
                 queryWeatherCode(newcitycode);
             } else {
-                Log.d("myweather", "网络挂了");
+                Log.d("myweather", "网络挂了，oh my god~~~");
                 Toast.makeText(MainActivity.this, "网络挂了", Toast.LENGTH_LONG).show();
             }
         }
