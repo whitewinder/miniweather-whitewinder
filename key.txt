@@ -1,0 +1,23 @@
+C:\Users\hasee>keytool -printcert -file C:\andriodwork\Miniweather\app\app-release\META-INF\CERT.RSA
+所有者: CN=miniweather, OU=miniweather, O=pku, L=pku, ST=pku, C=pku
+发布者: CN=miniweather, OU=miniweather, O=pku, L=pku, ST=pku, C=pku
+序列号: 1577c4ee
+有效期开始日期: Tue Dec 13 19:46:21 CST 2016, 截止日期: Sat Dec 07 19:46:21 CST 2041
+证书指纹:
+         MD5: DC:2E:9F:D7:E5:45:DC:B9:B2:32:81:16:39:9A:C2:6B
+         SHA1: D8:F1:62:F2:8E:37:E1:D8:79:67:02:8D:82:0F:98:AC:81:00:1F:5B
+         SHA256: 5E:92:DD:B4:24:49:E5:02:27:D3:EE:64:36:16:06:05:37:3A:01:80:38:0A:DA:67:52:FF:BB:F4:4B:6F:98:01
+         签名算法名称: SHA256withRSA
+         版本: 3
+
+扩展:
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: FD BA 5C FA 77 11 B0 2A   51 03 ED 06 12 76 8A 48  ..\.w..*Q....v.H
+0010: A2 D0 DA 0B                                        ....
+]
+]
+DC:2E:9F:D7:E5:45:DC:B9:B2:32:81:16:39:9A:C2:6B
+dc2e9fd7e545dcb9b2328116399ac26b

@@ -40,7 +40,7 @@
             android:layout_alignParentRight="true"
             style="@style/title_update_progressbar_style"/>
         <ImageView
-            android:id="@+id/title_base_action_bar_action_city"
+            android:id="@+id/location"
             android:layout_width="45.0dp"
         android:layout_height="45.0dp"
             android:layout_toLeftOf="@id/share"

@@ -16,6 +16,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationListener;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -52,6 +56,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private ViewPager vp;
     private List<View> views;
     private TodayWeather[] weathers;
+    private ImageView locationbtn;
+
+
 
 
     private static final int UPDATE_TODAY_WEATHER = 1;
@@ -105,6 +112,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         updateprogress=(ProgressBar) findViewById(R.id.title_update_progress);
         updateprogress.setVisibility(View.GONE);
         sharebtn=(ImageView) findViewById(R.id.share);
+        locationbtn=(ImageView) findViewById(R.id.location);
 
     }
     private void initviews(){
@@ -148,10 +156,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if (view.getId() == R.id.title_update) {
             updatebtn.setVisibility(view.GONE);
             updateprogress.setVisibility(view.VISIBLE);
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)sharebtn.getLayoutParams();
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) sharebtn.getLayoutParams();
             params.addRule(RelativeLayout.LEFT_OF, R.id.title_update_progress);
             sharebtn.setLayoutParams(params);
-              String citycode="101010100";
+            String citycode = "101010100";
             if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {
                 Log.d("myweather", "网络ok");
                 queryWeatherCode(citycode);
@@ -161,10 +169,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         }
         if (view.getId() == R.id.selectcity) {
-        Intent i = new Intent(MainActivity.this, SelectCity.class);//关联对应activity
-        startActivityForResult(i, 1);//1是请求码
+            Intent i = new Intent(MainActivity.this, SelectCity.class);//关联对应activity
+            startActivityForResult(i, 1);//1是请求码
+        }
+        if (view.getId() == R.id.location) {//定位当前城市
+
+
+        }
     }
-}
+
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {//requestcode用于标识请求来源；resultcode用于标识返回来源
         if (requestCode == 1 && resultCode == RESULT_OK) {
@@ -539,4 +552,5 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
 }
+
 
