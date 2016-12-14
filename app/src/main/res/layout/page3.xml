@@ -16,7 +16,7 @@
         android:id="@+id/btn"
         android:layout_width="98dp"
         android:layout_height="75dp"
-        android:text="开始体验"
+        android:text="@string/comeon"
         android:textSize="30dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"

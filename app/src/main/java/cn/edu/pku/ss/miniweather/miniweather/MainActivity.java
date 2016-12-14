@@ -3,7 +3,10 @@ package cn.edu.pku.ss.miniweather.miniweather;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
@@ -16,15 +19,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amap.api.location.AMapLocation;
-import com.amap.api.location.AMapLocationClient;
-import com.amap.api.location.AMapLocationListener;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -52,13 +53,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private TextView[]wind=new TextView[7];
     private ImageView weatherImg, pmImg;
     private ImageView selectcity;
+    private ImageView share;
     private ViewPagerAdapter vpAdapter;
     private ViewPager vp;
     private List<View> views;
     private TodayWeather[] weathers;
-    private ImageView locationbtn;
-
-
 
 
     private static final int UPDATE_TODAY_WEATHER = 1;
@@ -80,7 +79,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weather_info);
         updatebtn = (ImageView) findViewById(R.id.title_update);
+        sharebtn=(ImageView) findViewById(R.id.share);
         updatebtn.setOnClickListener(this);
+        sharebtn.setOnClickListener(this);
         if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {
             Log.d("myweather", "网络ok");
             Toast.makeText(MainActivity.this, "网络ok", Toast.LENGTH_LONG).show();
@@ -111,8 +112,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         weatherImg = (ImageView) findViewById(R.id.weatherimg);
         updateprogress=(ProgressBar) findViewById(R.id.title_update_progress);
         updateprogress.setVisibility(View.GONE);
-        sharebtn=(ImageView) findViewById(R.id.share);
-        locationbtn=(ImageView) findViewById(R.id.location);
 
     }
     private void initviews(){
@@ -156,10 +155,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if (view.getId() == R.id.title_update) {
             updatebtn.setVisibility(view.GONE);
             updateprogress.setVisibility(view.VISIBLE);
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) sharebtn.getLayoutParams();
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)sharebtn.getLayoutParams();
             params.addRule(RelativeLayout.LEFT_OF, R.id.title_update_progress);
             sharebtn.setLayoutParams(params);
-            String citycode = "101010100";
+              String citycode="101010100";
             if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {
                 Log.d("myweather", "网络ok");
                 queryWeatherCode(citycode);
@@ -169,25 +168,44 @@ public class MainActivity extends Activity implements View.OnClickListener {
             }
         }
         if (view.getId() == R.id.selectcity) {
-            Intent i = new Intent(MainActivity.this, SelectCity.class);//关联对应activity
-            startActivityForResult(i, 1);//1是请求码
-        }
-        if (view.getId() == R.id.location) {//定位当前城市
-
-
-        }
+        Intent i = new Intent(MainActivity.this, SelectCity.class);//关联对应activity
+        startActivityForResult(i, 1);//1是请求码
     }
-
+        if (view.getId() == R.id.share){
+            //1、屏幕截图
+            int width = getWindow().getDecorView().getRootView().getWidth();
+            int height = getWindow().getDecorView().getRootView().getHeight();
+            View view00 =  getWindow().getDecorView().getRootView();
+            view00.setDrawingCacheEnabled(true);
+            view00.buildDrawingCache();
+            Bitmap temBitmap = view00.getDrawingCache();
+            //weatherImg.setImageBitmap(temBitmap);//设置图片
+            //2、利用系统intent实现分享，将屏幕截图分享出去
+            //仅仅分享文字
+//            Intent intent = new Intent();
+//            intent.setAction(Intent.ACTION_SEND);
+//            intent.putExtra(Intent.EXTRA_TEXT, "这里是分享内容");
+//            intent.setType("text/plain");
+//            //设置分享列表的标题，并且每次都显示分享列表
+//            startActivity(Intent.createChooser(intent, "分享到"));
+            //分享屏幕截图
+//            Intent shareIntent = new Intent();
+//            shareIntent.setAction(Intent.ACTION_SEND);
+//            shareIntent.putExtra(Intent.EXTRA_STREAM, temBitmap);
+//            shareIntent.setType("image/*");
+//            startActivity(Intent.createChooser(shareIntent, "分享到"));
+        }
+}
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {//requestcode用于标识请求来源；resultcode用于标识返回来源
         if (requestCode == 1 && resultCode == RESULT_OK) {
             String newcitycode = data.getStringExtra("citycode");
             Log.d("myweather", "选择的城市代码为：" + newcitycode);
             if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {
-                Log.d("myweather", "网络ok~~~memeda");
+                Log.d("myweather", "网络ok");
                 queryWeatherCode(newcitycode);
             } else {
-                Log.d("myweather", "网络挂了，oh my god~~~");
+                Log.d("myweather", "网络挂了");
                 Toast.makeText(MainActivity.this, "网络挂了", Toast.LENGTH_LONG).show();
             }
         }
@@ -475,7 +493,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         week[0].setText(weathers[0].getDate()==null?"N/A":weathers[0].getDate());
         temperature[0].setText((weathers[0].getLow()==null ||weathers[0].getHigh()==null )?"N/A~N/A":(weathers[0].getLow() + "~" + weathers[0].getHigh()));
         type[0].setText(weathers[0].getType()==null?"N/A":weathers[0].getType());
-        wind[0].setText(weathers[0].getFengli()==null?"N/A":weathers[0].getFengli());
+
+        Log.d("weather","ok");
         if(weathers[0].getType()!=null) {
             switch (weathers[0].getType()) {
                 case "晴":
@@ -552,5 +571,4 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
 }
-
 

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -54,7 +53,6 @@ public class Guide extends Activity implements  ViewPager.OnPageChangeListener{
         vp=(ViewPager)findViewById(R.id.viewpager);
         vp.setAdapter(vpAdapter);
         vp.setOnPageChangeListener(this);
-        Log.d("guide","init");
     }
     void initdots(){
         dots=new ImageView[views.size()];
