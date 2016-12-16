@@ -200,7 +200,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {//requestcode用于标识请求来源；resultcode用于标识返回来源
         if (requestCode == 1 && resultCode == RESULT_OK) {
             String newcitycode = data.getStringExtra("citycode");
-            Log.d("myweather", "选择的城市代码为：" + newcitycode);
             if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {
                 Log.d("myweather", "网络ok");
                 queryWeatherCode(newcitycode);
@@ -213,7 +212,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private void queryWeatherCode(String citycode) {//拼接URL
         final String address = "http://wthrcdn.etouch.cn/WeatherApi?citykey=" + citycode;
-        Log.d("myweather", address);
         new Thread(new Runnable() {
             @Override
             public void run() {
