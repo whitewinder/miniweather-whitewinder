@@ -201,11 +201,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             String newcitycode = data.getStringExtra("citycode");
             if (NetUtil.getNetworkState(this) != NetUtil.NETWORN_NONE) {
-                Log.d("myweather", "网络ok！！！！！");
+                Log.d("myweather", "网络ok！！");
                 queryWeatherCode(newcitycode);
             } else {
-                Log.d("myweather", "网络挂了");
-                Toast.makeText(MainActivity.this, "网络挂了", Toast.LENGTH_LONG).show();
+                Log.d("myweather", "网络挂了！！！！！");
+                Toast.makeText(MainActivity.this, "网络挂了！！！！！！", Toast.LENGTH_LONG).show();
             }
         }
     }
