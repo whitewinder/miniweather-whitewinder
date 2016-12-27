@@ -215,7 +215,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             //仅仅分享文字
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_SEND);
-            intent.putExtra(Intent.EXTRA_TEXT, "这里是分享内容");
+            intent.putExtra(Intent.EXTRA_TEXT, "https://www.pgyer.com/ioPe");
             intent.setType("text/plain");
             //设置分享列表的标题，并且每次都显示分享列表
             startActivity(Intent.createChooser(intent, "分享到"));
@@ -609,10 +609,8 @@ class MyLocationListener implements BDLocationListener {
         //Receive Location
         if (location.getLocType() == BDLocation.TypeGpsLocation) {// GPS定位结果
             Log.d("location",location.getCityCode());
-            Log.d("location","okokokok");
         } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {// 网络定位结果
             Log.d("location",location.getCityCode());
-            Log.d("location","okokokok");
         }
     }
 }
