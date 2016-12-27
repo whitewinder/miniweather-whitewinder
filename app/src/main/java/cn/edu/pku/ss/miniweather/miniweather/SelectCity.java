@@ -97,7 +97,7 @@ public class SelectCity extends Activity  {
            //遍历list
           cityname=getcitynamearray(list);
            for(int i=0;i<list.size();i++){
-               if(citycode[i].contains(input_info)){
+               if(cityname[i].contains(input_info)){
                    newlist.add(list.get(i));
                }
            }
